@@ -55,7 +55,9 @@ class Game{
         order_up_team = 1;
     }
     void shuffle(){
+        pack.reset();
         pack.shuffle();
+        pack.reset();
     }
     void deal(){
         if(shuffling){//shuffle at the start of each deal
@@ -276,10 +278,6 @@ class Game{
             return 3;
         }
         return -1;  
-    }
-
-    void clear_hand(Player* plyr){
-        
     }
 
     void play(){

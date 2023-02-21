@@ -21,16 +21,16 @@
                 // "Simple"
 
                 "pack.in",
-                "noshuffle",
-                "3",
-                "Ivan",
-                "Human",
-                "Judea",
-                "Human",
-                "Kunle",
-                "Human",
-                "Liskov",
-                "Human",
+                "shuffle",
+                "10",
+                "Edsger",
+                "Simple",
+                "Fran",
+                "Simple",
+                "Gabriel",
+                "Simple",
+                "Herb",
+                "Simple"
                 
             ],
             "stopAtEntry": false,

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Pack.h"
 #include <array>
+#include <vector>
 #include "Card.h"
 
 using namespace std;
@@ -60,22 +61,24 @@ using namespace std;
   //          performs an in shuffle seven times. See
   //          https://en.wikipedia.org/wiki/In_shuffle.
   void Pack::shuffle(){
-    std::array<Card, PACK_SIZE> tempcards;
-    int counter = 0;
-    for(int num = 0; num < 7; ++num){//inshuffle 7 times
-    for(int i = 1; i < PACK_SIZE; i+=2){//shuffle top half of split
-        tempcards[i] = cards[counter];
+    vector<Card> tempcards;
+    Card random = Card();
+    for(int i = 0; i < 7; i++){
+      int counter = 0;
+      for (int k = 0; k < PACK_SIZE/2; k++){
+        tempcards.push_back(random);
+        tempcards.push_back(cards[counter]);
         counter++;
+      }
+      for (int j = 0; j < PACK_SIZE; j+=2){
+        tempcards[j] = cards[counter];
+        counter++;
+      }
+      for(int i = 0; i < PACK_SIZE; ++i){//copy temp into original
+        cards[i] = tempcards[i];
+      }
+      tempcards.clear();
     }
-    counter = PACK_SIZE-1;
-    for(int i = PACK_SIZE-2; i >= 0; i-=2){//shuffle other half
-        tempcards[i] = cards[counter];
-        counter--;
-    }
-  }
-  for(int i = 0; i < PACK_SIZE; ++i){//copy temp into original
-    cards[i] = tempcards[i];
-  }
   }
 
   // EFFECTS: returns true if there are no more cards left in the pack
