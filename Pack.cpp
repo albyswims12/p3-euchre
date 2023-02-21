@@ -74,8 +74,8 @@ using namespace std;
         tempcards[j] = cards[counter];
         counter++;
       }
-      for(int i = 0; i < PACK_SIZE; ++i){//copy temp into original
-        cards[i] = tempcards[i];
+      for(int l = 0; l < PACK_SIZE; ++l){//copy temp into original
+        cards[l] = tempcards[l];
       }
       tempcards.clear();
     }
