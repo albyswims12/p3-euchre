@@ -28,23 +28,23 @@ class Game{
     
     public:
 
-    Game(Player* one, Player* two, Player* three, Player* four, 
+    Game(vector<Player*> temp_players, 
         int pts_to_win, bool shuffle_in, istream& pack_name){
 
-        players.push_back(two);
-        players.push_back(three);
-        players.push_back(four);
-        players.push_back(one);
+        players.push_back(temp_players[1]);
+        players.push_back(temp_players[2]);
+        players.push_back(temp_players[3]);
+        players.push_back(temp_players[0]);
 
-        original_player_order.push_back(two);
-        original_player_order.push_back(three);
-        original_player_order.push_back(four);
-        original_player_order.push_back(one);
+        original_player_order.push_back(temp_players[1]);
+        original_player_order.push_back(temp_players[2]);
+        original_player_order.push_back(temp_players[3]);
+        original_player_order.push_back(temp_players[0]);
 
-        dealer_order.push_back(two);
-        dealer_order.push_back(three);
-        dealer_order.push_back(four);
-        dealer_order.push_back(one);
+        dealer_order.push_back(temp_players[1]);
+        dealer_order.push_back(temp_players[2]);
+        dealer_order.push_back(temp_players[3]);
+        dealer_order.push_back(temp_players[0]);
 
         points_to_win = pts_to_win;
         shuffling = shuffle_in;
@@ -161,7 +161,8 @@ class Game{
             int winner_index_return = 0;
             int winner_index = play_hand_mini();
             for (int i = 0; i < original_player_order.size(); i++){
-                if (original_player_order[i]->get_name() == players[winner_index]->get_name()){
+                if (original_player_order[i]->get_name() 
+                    == players[winner_index]->get_name()){
                     winner_index_return = i;
                 }
             }
@@ -382,9 +383,10 @@ int main(int argc, char *argv[]){
     string shuffle = string(argv[2]);
     bool temp_shuffle = (shuffle == "shuffle");
     int points_to_win = atoi(argv[3]);
-    if((argc != 12) && (1 <= points_to_win) && (points_to_win <= 100) && ((shuffle == "shuffle") 
-        || (shuffle == "noshuffle")) && (is_simple_or_human(argv[5])) && (is_simple_or_human(argv[7]))
-        && (is_simple_or_human(argv[9])) && (is_simple_or_human(argv[11]))){//checking for errors in cmd line args
+    if((argc != 12) && (1 <= points_to_win) && (points_to_win <= 100) 
+     && ((shuffle == "shuffle") || (shuffle == "noshuffle")) 
+        && (is_simple_or_human(argv[5])) && (is_simple_or_human(argv[7]))
+        && (is_simple_or_human(argv[9])) && (is_simple_or_human(argv[11]))){
         cout << "Usage: euchre.exe PACK_FILENAME [shuffle|noshuffle] "
      << "POINTS_TO_WIN NAME1 TYPE1 NAME2 TYPE2 NAME3 TYPE3 "
      << "NAME4 TYPE4" << endl;
@@ -399,9 +401,15 @@ int main(int argc, char *argv[]){
     Player* one = Player_factory(Player1Name, Player1Type); 
     Player* two = Player_factory(Player2Name, Player2Type); 
     Player* three = Player_factory(Player3Name, Player3Type); 
-    Player* four = Player_factory(Player4Name, Player4Type); 
+    Player* four = Player_factory(Player4Name, Player4Type);
 
-    Game euchre = Game(one, two, three, four, points_to_win, temp_shuffle, fin);
+    vector<Player*> temp_players;
+    temp_players.push_back(one);
+    temp_players.push_back(two);
+    temp_players.push_back(three);
+    temp_players.push_back(four);
+
+    Game euchre = Game(temp_players, points_to_win, temp_shuffle, fin);
     
     euchre.play();
 
